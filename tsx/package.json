@@ -1,0 +1,25 @@
+{
+  "name": "opendaw-lib-tsx",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo no tests",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "lint": "tsc"
+  },
+  "devDependencies": {
+    "dom": "file:../dom",
+    "std": "file:../std",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.3"
+  },
+  "files": [
+    "dist/**/*",
+    "src/global.d.ts",
+    "package.json"
+  ]
+}
