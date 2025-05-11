@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from "vitest"
-import { Option } from "./option"
-import { CascadingSubscriptions, Subscription, Terminable, Terminator } from "./terminable"
-import { Notifier, Observable, Observer } from "./observers"
+import {beforeEach, describe, expect, it} from "vitest"
+import {Option} from "./option"
+import {CascadingSubscriptions, Subscription, Terminable, Terminator} from "./terminable"
+import {Notifier, Observable, Observer} from "./observers"
 
 class TestObservable<T> implements Observable<T> {
 	readonly #notifier: Notifier<T>
@@ -39,8 +39,7 @@ beforeEach<Context>(ctx => {
 	const targetB = new TestObservable<Option<number>>(Option.None)
 	const bodyA = new TestObservable<Option<typeof targetA>>(Option.None)
 	const bodyB = new TestObservable<Option<typeof targetA>>(Option.None)
-	const root = new TestObservable<Option<typeof bodyA>>(Option.None)
-	ctx.root = root
+    ctx.root = new TestObservable<Option<typeof bodyA>>(Option.None)
 	ctx.bodyA = bodyA
 	ctx.bodyB = bodyB
 	ctx.targetA = targetA

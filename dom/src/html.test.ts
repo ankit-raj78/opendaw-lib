@@ -1,3 +1,5 @@
+// noinspection PointlessBooleanExpressionJS
+
 import { describe, expect, it } from "vitest"
 import { Html } from "./html"
 
