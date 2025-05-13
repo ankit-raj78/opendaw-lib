@@ -13,7 +13,7 @@
     "module": "ESNext",
     "noEmit": true,
     "lib": [
-      "ESNext"
+      "ESNext", "DOM"
     ],
     "sourceMap": true,
     "declaration": true,

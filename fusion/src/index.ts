@@ -1,2 +1,6 @@
 export * from "./live-stream/LiveStreamReceiver"
 export * from "./live-stream/LiveStreamBroadcaster"
+export * from "./peaks/Peaks"
+export * from "./peaks/PeakWorker"
+export * from "./peaks/PeakProtocol"
+export * from "./peaks/PeaksPainter"
