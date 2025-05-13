@@ -9,71 +9,60 @@ and web-based functionality.
 
 ### `box`
 
-The `box` library is designed to represent and manage data in a graph structure. This module provides the ability to create, remove, and analyze vertices and edges in a graph. Each `Box` instance represents a vertex with fields and pointers, making it ideal for complex data relationships like dependency graphs and data propagation systems. Features include:
+The `box` library is designed to represent and manage data in a graph structure. This module provides the ability to
+create, remove, and analyze vertices and edges in a graph. Each `Box` instance represents a vertex with fields and
+pointers, making it ideal for complex data relationships like dependency graphs and data propagation systems. Features
+include:
 
 - Managing directed edges between boxes (vertices).
 - Subscribing to updates and propagating changes across the graph.
-- Memory estimation and serialization for performance optimization.
+- Memory estimation and serialization.
 
 ---
 
 ### `box-forge`
 
-`box-forge` extends the functionality of `box` by providing additional utilities and tests for working with graph-based data structures. It includes tools to validate, manage, and customize the behavior of the `box` module, ensuring compatibility and reliability for various graph-based workflows.
+`box-forge` is a source generator for boxes based on TypeScript schemas. It automatically generates box implementations
+and related utilities from schema definitions, helping to maintain type safety and reducing boilerplate while working
+with the `box` module's graph-based data structures.
 
 ---
 
 ### `dom`
 
-The `dom` library contains utilities for interacting with the browser's Document Object Model (DOM). It simplifies common browser-related tasks, enabling developers to:
+The `dom` library contains utilities for interacting with the browser's Document Object Model (DOM). It simplifies
+common browser-related tasks, enabling developers to:
 
 - Dynamically manipulate DOM elements.
 - Handle DOM-related events and workflows.
-- Create web-friendly code with minimal boilerplate.
 
 ---
 
 ### `dsp`
 
-The `dsp` module offers tools for Digital Signal Processing, particularly focused on audio-related tasks. This library provides efficient methods to process audio signals, apply effects, and manage real-time transformations. Key features include:
-
-- Real-time signal manipulation.
-- Audio filtering and effects application.
+The `dsp` module offers a few tools for Digital Signal Processing, particularly focused on audio-related tasks. This library
+provides efficient methods to process audio signals, apply effects, and manage real-time transformations.
 
 ---
 
 ### `runtime`
 
-The `runtime` library provides helpers for managing platform-specific runtime environments. It includes checks and utilities designed to ensure smooth operation across different platforms and runtime contexts. Features include:
-
-- Environment detection (e.g., browser, Tauri, or specific operating systems).
-- Platform-aware configurations and optimizations.
+The `runtime` library provides helpers for managing platform-specific runtime environments. It includes checks and
+utilities designed to ensure smooth operation across different platforms and runtime contexts.
 
 ---
 
 ### `std`
 
-The `std` library serves as the project’s standard utilities module. It provides a collection of general-purpose functions and abstractions used throughout the project, including:
-
-- Array and iterable manipulation.
-- Error handling, memory management, and other essential operations.
-- Tools for dealing with asynchronous workflows and observables.
+The `std` library serves as a project’s standard module. It provides a collection of general-purpose
+functions and abstractions used throughout any project.
 
 ---
 
-### `tsx`
+### `jsx`
 
-The `tsx` module includes tools and utilities for working with TSX/JSX-based components in web applications. It helps simplify the creation of dynamic, reusable frontend components and promotes clean and efficient UI development.
-
----
-
-## Features
-
-- **Graph Management**: Use `box` and `box-forge` for creating and managing complex data relationships.
-- **Web Utilities**: Leverage `dom` for DOM manipulation and `tsx` for JSX-based frontend development.
-- **Audio Processing**: Utilize `dsp` for efficient audio signal transformations.
-- **Cross-Platform Support**: `runtime` ensures adaptability to multiple environments.
-- **Reusable Utilities**: With `std`, general programming tasks become streamlined and consistent.
+The `jsx` module includes tools and utilities for working with TSX/JSX-based components in web applications. It helps
+simplify the creation of dynamic, reusable frontend components and promotes clean and efficient UI development.
 
 ---
 
