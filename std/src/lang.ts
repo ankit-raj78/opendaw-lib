@@ -7,31 +7,31 @@ export type double = number
 export type long = bigint
 export type unitValue = number // 0...1
 export type NumberArray =
-	ReadonlyArray<number>
-	| Float32Array
-	| Float64Array
-	| Uint8Array
-	| Int8Array
-	| Uint16Array
-	| Int16Array
-	| Uint32Array
-	| Int32Array
+    ReadonlyArray<number>
+    | Float32Array
+    | Float64Array
+    | Uint8Array
+    | Int8Array
+    | Uint16Array
+    | Int16Array
+    | Uint32Array
+    | Int32Array
 export type FloatArray = Float32Array | Float64Array | number[]
 export type Primitive = boolean | byte | short | int | long | float | double | string | Readonly<Int8Array>
 export type StructuredCloneable =
-	| string
-	| number
-	| boolean
-	| null
-	| undefined
-	| StructuredCloneable[]
-	| { [key: string]: StructuredCloneable }
-	| ArrayBuffer
-	| DataView
-	| Date
-	| Map<StructuredCloneable, StructuredCloneable>
-	| Set<StructuredCloneable>
-	| RegExp
+    | string
+    | number
+    | boolean
+    | null
+    | undefined
+    | StructuredCloneable[]
+    | { [key: string]: StructuredCloneable }
+    | ArrayBuffer
+    | DataView
+    | Date
+    | Map<StructuredCloneable, StructuredCloneable>
+    | Set<StructuredCloneable>
+    | RegExp
 export type JSONValue = string | number | boolean | null | JSONArray | JSONObject
 export type JSONArray = Array<JSONValue>
 export type JSONObject = { [key: string]: JSONValue }
@@ -68,27 +68,27 @@ export const Unhandled = <R>(empty: never): R => {throw new Error(`Unhandled ${e
 export const panic = (issue?: string | Error): never => {throw issue instanceof Error ? issue : new Error(issue)}
 export const assert = (condition: boolean, fail: ValueOrProvider<string>): void => condition ? undefined : panic(getOrProvide(fail))
 export const checkIndex = (index: int, array: { length: int }): int =>
-	index >= 0 && index < array.length ? index : panic(`Index ${index} is out of bounds`)
-export const InaccessibleProperty = <T>(failMessage: string): T => new Proxy({}, { get() { return panic(failMessage) } }) as T
+    index >= 0 && index < array.length ? index : panic(`Index ${index} is out of bounds`)
+export const InaccessibleProperty = <T>(failMessage: string): T => new Proxy({}, {get() { return panic(failMessage) }}) as T
 export const canWrite = <T>(obj: T, key: keyof any): obj is T & Record<typeof key, unknown> => {
-	while (isDefined(obj)) {
-		const descriptor = Object.getOwnPropertyDescriptor(obj, key)
-		if (isDefined(descriptor)) {return typeof descriptor.set === "function"}
-		obj = Object.getPrototypeOf(obj)
-	}
-	return false
+    while (isDefined(obj)) {
+        const descriptor = Object.getOwnPropertyDescriptor(obj, key)
+        if (isDefined(descriptor)) {return typeof descriptor.set === "function"}
+        obj = Object.getPrototypeOf(obj)
+    }
+    return false
 }
 export const tryCatch = <T>(statement: Provider<T>)
-	: { status: "success", error: null, value: T } | { status: "failure", error: unknown, value: null } => {
-	try {
-		return { error: null, value: statement(), status: "success" }
-	} catch (error) {
-		return { error, value: null, status: "failure" }
-	}
+    : { status: "success", error: null, value: T } | { status: "failure", error: unknown, value: null } => {
+    try {
+        return {error: null, value: statement(), status: "success"}
+    } catch (error) {
+        return {error, value: null, status: "failure"}
+    }
 }
 export const isValidIdentifier = (identifier: string): boolean => /^[A-Za-z_$][A-Za-z0-9_]*$/.test(identifier)
 export const asValidIdentifier = (identifier: string): string =>
-	isValidIdentifier(identifier) ? identifier : panic(`'${identifier}' is not a valid identifier`)
+    isValidIdentifier(identifier) ? identifier : panic(`'${identifier}' is not a valid identifier`)
 export const EmptyExec: Exec = (): void => {}
 export const EmptyProvider: Provider<any> = (): any => {}
 export const EmptyProcedure: Procedure<any> = (_: any): void => {}

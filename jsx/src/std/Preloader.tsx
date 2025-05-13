@@ -1,6 +1,6 @@
-import { Terminable } from "std"
-import { createElement } from "../create-element"
-import { Html } from "dom"
+import {Terminable} from "std"
+import {createElement} from "../create-element"
+import {Html} from "dom"
 
 const className = Html.adoptStyleSheet(`
 @keyframes fill {
@@ -19,8 +19,8 @@ component {
 }
 `, "__preloader__")
 
-export const Preloader = ({ color }: { color?: string }): Terminable => {
-	const element: HTMLElement = <div className={className} style={{ backgroundColor: color ?? "orange" }} />
-	document.body.appendChild(element)
-	return { terminate: () => element.remove() }
+export const Preloader = ({color}: { color?: string }): Terminable => {
+    const element: HTMLElement = <div className={className} style={{backgroundColor: color ?? "orange"}}/>
+    document.body.appendChild(element)
+    return {terminate: () => element.remove()}
 }

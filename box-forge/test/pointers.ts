@@ -1,12 +1,12 @@
 export enum PointerType {
-	NetworkModule,
-	AudioConnection,
-	AudioInput,
-	AudioOutput,
-	NoteConnection,
-	NoteInput,
-	NoteOutput,
-	ParameterAutomation,
-	ParameterModulation,
-	Groove
+    NetworkModule,
+    AudioConnection,
+    AudioInput,
+    AudioOutput,
+    NoteConnection,
+    NoteInput,
+    NoteOutput,
+    ParameterAutomation,
+    ParameterModulation,
+    Groove
 }

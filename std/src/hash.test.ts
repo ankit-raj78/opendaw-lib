@@ -1,6 +1,5 @@
-
-import { describe, expect, it } from "vitest"
-import { Hash } from "./hash"
+import {describe, expect, it} from "vitest"
+import {Hash} from "./hash"
 
 describe("Hash", () => {
     describe("fromBuffers", () => {

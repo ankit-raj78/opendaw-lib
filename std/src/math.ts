@@ -1,4 +1,4 @@
-import { int } from "./lang"
+import {int} from "./lang"
 
 export const TAU = Math.PI * 2.0
 export const PI_HALF = Math.PI / 2.0
@@ -11,8 +11,8 @@ export const quantizeCeil = (value: number, interval: number): number => Math.ce
 export const quantizeRound = (value: number, interval: number): number => Math.round(value / interval) * interval
 export const linear = (y1: number, y2: number, mu: number): number => y1 + (y2 - y1) * mu
 export const cosine = (y1: number, y2: number, mu: number): number => {
-	const mu2 = (1.0 - Math.cos(mu * Math.PI)) * 0.5
-	return y1 * (1.0 - mu2) + y2 * mu2
+    const mu2 = (1.0 - Math.cos(mu * Math.PI)) * 0.5
+    return y1 * (1.0 - mu2) + y2 * mu2
 }
 export const mod = (value: number, range: number): number => fract(value / range) * range
 export const fract = (value: number): number => value - Math.floor(value)

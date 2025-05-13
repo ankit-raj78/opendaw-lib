@@ -1,21 +1,21 @@
-import { Exec, Subscription } from "std"
+import {Exec, Subscription} from "std"
 
 export namespace Interval {
-	export const postpone = (() => {
-		let id: any = undefined
-		return (exec: Exec, timeout: number = 1000) => {
-			clearTimeout(id)
-			id = setTimeout(exec, timeout)
-		}
-	})()
+    export const postpone = (() => {
+        let id: any = undefined
+        return (exec: Exec, timeout: number = 1000) => {
+            clearTimeout(id)
+            id = setTimeout(exec, timeout)
+        }
+    })()
 
-	export const scheduleInterval = (exec: Exec, time: number, ...args: Array<any>): Subscription => {
-		const id = setInterval(exec, time, ...args)
-		return { terminate: () => clearInterval(id) }
-	}
+    export const scheduleInterval = (exec: Exec, time: number, ...args: Array<any>): Subscription => {
+        const id = setInterval(exec, time, ...args)
+        return {terminate: () => clearInterval(id)}
+    }
 
-	export const scheduleTimeout = (exec: Exec, time: number, ...args: Array<any>): Subscription => {
-		const id = setTimeout(exec, time, ...args)
-		return { terminate: () => clearTimeout(id) }
-	}
+    export const scheduleTimeout = (exec: Exec, time: number, ...args: Array<any>): Subscription => {
+        const id = setTimeout(exec, time, ...args)
+        return {terminate: () => clearTimeout(id)}
+    }
 }

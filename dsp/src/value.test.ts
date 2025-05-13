@@ -10,15 +10,43 @@ describe("ValueEvent", () => {
     })
     it("iterate one", () => {
         const events: EventCollection<ValueEvent> = EventCollection.create(ValueEvent.Comparator)
-        const event: ValueEvent = {type: "value-event", position: 0, index: 0, value: 0, interpolation: Interpolation.Default, slope: 0.0}
+        const event: ValueEvent = {
+            type: "value-event",
+            position: 0,
+            index: 0,
+            value: 0,
+            interpolation: Interpolation.Default,
+            slope: 0.0
+        }
         events.add(event)
         expect(Array.from(ValueEvent.iterateWindow(events, 0, 1))).toStrictEqual([event])
     })
     it("iterate two (out)", () => {
         const events: EventCollection<ValueEvent> = EventCollection.create(ValueEvent.Comparator)
-        const A0: ValueEvent = {type: "value-event", position: 0, index: 0, value: 0, interpolation: Interpolation.Default, slope: 0.0}
-        const A1: ValueEvent = {type: "value-event", position: 0, index: 1, value: 0, interpolation: Interpolation.Default, slope: 0.0}
-        const B: ValueEvent = {type: "value-event", position: PPQN.Bar * 3, index: 0, value: 0, interpolation: Interpolation.Default, slope: 0.0}
+        const A0: ValueEvent = {
+            type: "value-event",
+            position: 0,
+            index: 0,
+            value: 0,
+            interpolation: Interpolation.Default,
+            slope: 0.0
+        }
+        const A1: ValueEvent = {
+            type: "value-event",
+            position: 0,
+            index: 1,
+            value: 0,
+            interpolation: Interpolation.Default,
+            slope: 0.0
+        }
+        const B: ValueEvent = {
+            type: "value-event",
+            position: PPQN.Bar * 3,
+            index: 0,
+            value: 0,
+            interpolation: Interpolation.Default,
+            slope: 0.0
+        }
         events.add(A1)
         events.add(A0)
         events.add(B)
@@ -26,8 +54,22 @@ describe("ValueEvent", () => {
     })
     it("iterate two (in)", () => {
         const events: EventCollection<ValueEvent> = EventCollection.create(ValueEvent.Comparator)
-        const A: ValueEvent = {type: "value-event", position: PPQN.Quarter, index: 0, value: 0, interpolation: Interpolation.Default, slope: 0.0}
-        const B: ValueEvent = {type: "value-event", position: PPQN.Quarter * 3, index: 0, value: 0, interpolation: Interpolation.Default, slope: 0.0}
+        const A: ValueEvent = {
+            type: "value-event",
+            position: PPQN.Quarter,
+            index: 0,
+            value: 0,
+            interpolation: Interpolation.Default,
+            slope: 0.0
+        }
+        const B: ValueEvent = {
+            type: "value-event",
+            position: PPQN.Quarter * 3,
+            index: 0,
+            value: 0,
+            interpolation: Interpolation.Default,
+            slope: 0.0
+        }
         events.add(B)
         events.add(A)
         expect(Array.from(ValueEvent.iterateWindow(events, 0, PPQN.Bar))).toStrictEqual([A, B])
