@@ -12,7 +12,7 @@
     "clear-gen": "rm -rf ./test/gen/*",
     "forge": "npx tsx test/schema.ts",
     "format": "prettier --write \"./test/gen/**/*.ts\" --ignore-path /dev/null",
-    "test": "npx vitest run -- test/forge.test.ts",
+    "test": "npm run gen && npx vitest run -- test/forge.test.ts",
     "gen-and-test": "npm run build-std && npm run build-box && npm run gen && npm test",
     "gen": "npm run clear-gen && npm run forge && npm run format",
     "build": "tsup src/index.ts --format cjs,esm --dts"

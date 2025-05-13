@@ -15,4 +15,9 @@ for dir in "${dirs[@]}"; do
   (cd "$dir" && npm run build) || exit 1
 done
 
+for dir in "${dirs[@]}"; do
+  echo "test $dir"
+  (cd "$dir" && npm run test) || exit 1
+done
+
 echo "done"
