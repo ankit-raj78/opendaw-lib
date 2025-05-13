@@ -1,5 +1,5 @@
 {
-  "name": "opendaw-lib-tsx",
+  "name": "opendaw-lib-jsx",
   "version": "0.0.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -19,7 +19,6 @@
   },
   "files": [
     "dist/**/*",
-    "src/global.d.ts",
     "package.json"
   ]
 }

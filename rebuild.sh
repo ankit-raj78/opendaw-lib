@@ -3,7 +3,7 @@ clear
 set -e
 sh ./clean.sh || exit 1
 
-dirs=(std runtime dom dsp box box-forge tsx)   # topological sorted by dependency
+dirs=(std runtime dom dsp box box-forge jsx)   # topological sorted by dependency
 
 for dir in "${dirs[@]}"; do
   echo "install $dir"
