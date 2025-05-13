@@ -4,7 +4,7 @@ import {Inject} from "./inject"
 export type DomElement = HTMLElement | SVGElement
 export type JsxValue = null | undefined | boolean | string | number | DomElement | Array<JsxValue>
 
-// These are all utility type to let jsx understand usual html and svg elements.
+// These are all utility type to let jsx understand usual HTML and SVG elements.
 //
 type AttributeMap = {
     className?: string | Inject.ClassList

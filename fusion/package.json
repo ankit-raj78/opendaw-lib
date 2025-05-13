@@ -8,11 +8,13 @@
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "test": "echo no tests yet"
   },
-  "devDependencies": {
+  "peerDependencies": {
     "std": "file:../std",
     "dom": "file:../dom",
     "runtime": "file:../runtime",
-    "box": "file:../box",
+    "box": "file:../box"
+  },
+  "devDependencies": {
     "tsup": "^8.4.0",
     "typescript": "^5.8.3",
     "vitest": "^3.1.3"

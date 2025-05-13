@@ -60,7 +60,7 @@ export class LiveStreamBroadcaster {
         }
         if (this.#sabOption.isEmpty()) {return}
         // If main-thread is not interested, no data will ever be sent again, since it will not set the lock to CAN_WRITE.
-        // No lock necessary since the other side skips reading until the we set the lock to CAN_READ.
+        // No lock is necessary since the other side skips reading until we set the lock to CAN_READ.
         if (Atomics.load(this.#lockArray, 0) === Lock.WRITE) {
             this.#flushData(this.#output)
             this.#output.position = 0
