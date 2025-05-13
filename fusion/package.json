@@ -1,0 +1,24 @@
+{
+  "name": "opendaw-lib-fusion",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "echo no tests yet"
+  },
+  "devDependencies": {
+    "std": "file:../std",
+    "dom": "file:../dom",
+    "runtime": "file:../runtime",
+    "box": "file:../box",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.3"
+  },
+  "files": [
+    "dist/**/*",
+    "package.json"
+  ]
+}
