@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 clear
 set -e
 sh ./clean.sh || exit 1
