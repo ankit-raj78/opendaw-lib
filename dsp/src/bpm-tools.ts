@@ -21,7 +21,6 @@ export namespace BPMTools {
             minBPM = 90,
             maxBPM = 180
         } = options
-        console.debug(`BPMTools.detect interval: ${interval}, scanSteps: ${scanSteps}, scanSamples: ${scanSamples}, minBPM: ${minBPM}, maxBPM: ${maxBPM}`)
         const env = new Float32Array(Math.floor(buf.length / interval))
         let v = 0.0, k = 0.0, i = 0
         for (const x of buf) {
