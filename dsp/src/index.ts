@@ -1,5 +1,6 @@
 export * from "./biquad-coeff"
 export * from "./biquad-processor"
+export * from "./bpm-tools"
 export * from "./chords"
 export * from "./delay"
 export * from "./events"
