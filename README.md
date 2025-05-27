@@ -78,22 +78,14 @@ Please make sure `npm test` passes and follow the existing code-style.
 The project includes the following two shell scripts in its root directory:
 
 1. **`clean.sh`**:
-    - Purpose: Likely used to remove temporary files, built assets, or other intermediate files generated during
-      development or building processes.
-    - Common tasks could include:
-        - Deleting compiled JavaScript or TypeScript files (`.js`, `.js.map`).
-        - Clearing cache or temporary build directories.
-        - Cleaning `node_modules` or resetting dependencies in some cases.
-
+    - Deleting compiled JavaScript or TypeScript files (`.js`, `.js.map`).
+    - Clearing cache or temporary build directories.
+    - Cleaning `node_modules` or resetting dependencies in some cases.
     - This ensures the development environment is in a "clean slate" state, free from residual or outdated files.
 
 2. **`rebuild.sh`**:
-    - Purpose: Likely combines the steps of cleaning and rebuilding the library.
-    - Typical operations:
-        - Calls . `clean.sh`
-        - Triggers the build pipeline (e.g., via `npm run build`, `tsc`, or another build tool like `vite` or `tsup`).
-        - Prepares the library for use, production, or distribution by ensuring all code is up to date and correctly
-          built.
+    - Calls . `clean.sh`
+    - Triggers the build pipeline
 
 ---
 
