@@ -1,6 +1,7 @@
 import {Field, FieldConstruct} from "./field"
 import {PointerTypes, UnreferenceableType} from "./pointer"
 import {
+    assert,
     ByteArrayInput,
     ByteArrayOutput,
     DataInput,
@@ -71,8 +72,8 @@ export abstract class PrimitiveField<
     P extends PointerTypes = UnreferenceableType
 > extends Field<P, never> implements MutableObservableValue<V> {
     readonly #type: PrimitiveType
-    readonly #initValue: V
 
+    #initValue: V
     #value: V
 
     protected constructor(field: FieldConstruct<P>, type: PrimitiveType, value: V) {
@@ -102,6 +103,11 @@ export abstract class PrimitiveField<
 
     get type(): PrimitiveType {return this.#type}
     get initValue(): V {return this.#initValue}
+
+    setInitValue(value: V): void {
+        assert(this.graph.constructingBox(), "Cannot change initial value at runtime")
+        this.setValue(this.#initValue = value)
+    }
 
     getValue(): V {return this.#value}
     setValue(value: V): void {

@@ -88,6 +88,7 @@ export class BoxGraph<BoxMap = any> {
     }
 
     inTransaction(): boolean {return this.#inTransaction}
+    constructingBox(): boolean {return this.#constructingBox}
 
     resolvePointers(): void {
         if (this.#deferredPointerUpdates.length === 0) {return}
