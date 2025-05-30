@@ -29,3 +29,19 @@ export class GroovePattern implements Groove {
         return start + transformed * duration
     }
 }
+
+export class GrooveChain implements Groove {
+    readonly #grooves: ReadonlyArray<Groove>
+
+    constructor(grooves: ReadonlyArray<Groove>) {this.#grooves = grooves}
+
+    warp(position: ppqn): ppqn {
+        for (let i = 0; i < this.#grooves.length; i++) {position = this.#grooves[i].warp(position)}
+        return position
+    }
+
+    unwarp(position: ppqn): ppqn {
+        for (let i = this.#grooves.length - 1; i >= 0; i--) {position = this.#grooves[i].unwarp(position)}
+        return position
+    }
+}

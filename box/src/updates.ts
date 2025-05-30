@@ -58,7 +58,7 @@ export class NewUpdate implements Modification {
     readonly #name: string
     readonly #settings: ArrayBufferLike
 
-    constructor(uuid: Readonly<Uint8Array<ArrayBufferLike>>, name: string, settings: ArrayBufferLike) {
+    constructor(uuid: UUID.Format, name: string, settings: ArrayBufferLike) {
         this.#uuid = uuid
         this.#name = name
         this.#settings = settings
