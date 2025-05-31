@@ -1,6 +1,6 @@
 export * from "./communicator"
 export * from "./fetch"
-export * from "./interval"
+export * from "./runtime"
 export * from "./messenger"
 export * from "./network"
 export * from "./promises"

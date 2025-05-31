@@ -1,7 +1,8 @@
 import {Exec, Subscription} from "std"
 
-export namespace Interval {
-    export const postpone = (() => {
+export namespace Runtime {
+    // Debounces execution by delaying the call until after the timeout has passed without new invocations.
+    export const debounce = (() => {
         let id: any = undefined
         return (exec: Exec, timeout: number = 1000) => {
             clearTimeout(id)
