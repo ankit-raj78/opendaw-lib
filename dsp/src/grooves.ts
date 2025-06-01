@@ -21,11 +21,10 @@ export class GroovePattern implements Groove {
     unwarp(position: ppqn): ppqn {return this.#transform(false, position)}
 
     #transform(forward: boolean, position: ppqn): ppqn {
-        const groove = this.#func
-        const duration = groove.duration()
+        const duration = this.#func.duration()
         const start = quantizeFloor(position, duration)
         const normalized = (position - start) / duration
-        const transformed = forward ? groove.fx(normalized) : groove.fy(normalized)
+        const transformed = forward ? this.#func.fx(normalized) : this.#func.fy(normalized)
         return start + transformed * duration
     }
 }
