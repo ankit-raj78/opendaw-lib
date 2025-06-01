@@ -1,5 +1,12 @@
 import {describe, expect, it} from "vitest"
-import {Groove, GrooveChain, GroovePattern, GroovePatternFunction, QuantisedGrooveFunction} from "./grooves"
+import {
+    Groove,
+    GrooveChain,
+    GrooveFunction,
+    GroovePattern,
+    GroovePatternFunction,
+    QuantisedGrooveFunction
+} from "./grooves"
 import {PPQN, ppqn} from "./ppqn"
 import {meCurve, Random} from "std"
 
@@ -14,12 +21,17 @@ const createOffsetGroove = (offset: ppqn): Groove => ({
     unwarp: (position: ppqn): ppqn => position - offset
 })
 
+const groovePingPong = (groove: Groove, x: ppqn) => expect(groove.unwarp(groove.warp(x))).toBeCloseTo(x, 7)
+const bijectivePingPong = (func: GrooveFunction, x: ppqn) => expect(func.fy(func.fx(x))).toBeCloseTo(x, 7)
+
 describe("Grooves", () => {
     it("should be revertible", () => {
         const G = createMEGroove(PPQN.SemiQuaver * 2, 0.5)
-        expect(G.unwarp(G.warp(PPQN.SemiQuaver))).toBeCloseTo(PPQN.SemiQuaver, 7)
-        expect(G.unwarp(G.warp(PPQN.SemiQuaver * 1.1))).toBeCloseTo(PPQN.SemiQuaver * 1.1, 7)
-        expect(G.unwarp(G.warp(PPQN.SemiQuaver * 1.7))).toBeCloseTo(PPQN.SemiQuaver * 1.7, 7)
+        groovePingPong(G, PPQN.SemiQuaver)
+        groovePingPong(G, PPQN.SemiQuaver * 1.2)
+        groovePingPong(G, PPQN.SemiQuaver * 1.23)
+        groovePingPong(G, PPQN.SemiQuaver * 1.234)
+        groovePingPong(G, PPQN.SemiQuaver * 1.2345678)
     })
     it("should be chainable", () => {
         const A = createMEGroove(PPQN.SemiQuaver * 2, 0.50)
@@ -27,10 +39,11 @@ describe("Grooves", () => {
         const C = createOffsetGroove(PPQN.SemiQuaver)
         const D = createMEGroove(PPQN.SemiQuaver * 7, 0.66)
         const G = new GrooveChain([A, B, C, D])
-        expect(G.unwarp(G.warp(PPQN.SemiQuaver))).toBeCloseTo(PPQN.SemiQuaver, 7)
-        expect(G.unwarp(G.warp(PPQN.SemiQuaver * 1.1))).toBeCloseTo(PPQN.SemiQuaver * 1.1, 7)
-        expect(G.unwarp(G.warp(PPQN.SemiQuaver * 1.7))).toBeCloseTo(PPQN.SemiQuaver * 1.7, 7)
-        expect(G.unwarp(G.warp(PPQN.SemiQuaver * 42.7))).toBeCloseTo(PPQN.SemiQuaver * 42.7, 7)
+        groovePingPong(G, PPQN.SemiQuaver)
+        groovePingPong(G, PPQN.SemiQuaver * 1.2)
+        groovePingPong(G, PPQN.SemiQuaver * 1.23)
+        groovePingPong(G, PPQN.SemiQuaver * 1.234)
+        groovePingPong(G, PPQN.SemiQuaver * 1.2345678)
     })
 })
 
@@ -65,17 +78,20 @@ describe("QuantisedGrooveFunction", () => {
     })
     it("3 values [0,0.77,1]", () => {
         const func = new QuantisedGrooveFunction(new Float64Array([0.0, 0.77, 1.0]))
-        expect(func.fx(0.50)).toBe(0.77)
-        expect(func.fy(0.77)).toBe(0.50)
-        expect(func.fx(func.fy(0.77))).toBe(0.77)
-        expect(func.fx(func.fy(0.13))).toBe(0.13)
+        bijectivePingPong(func, 0.00)
+        bijectivePingPong(func, 0.50)
+        bijectivePingPong(func, 0.13)
+        bijectivePingPong(func, 0.13)
+        bijectivePingPong(func, 0.59)
+        bijectivePingPong(func, 1.00)
     })
     it("random values", () => {
         const func = new QuantisedGrooveFunction(Random.monotoneAscending(new Float32Array(9), 128))
-        expect(func.fx(func.fy(0.00))).toBe(0.00)
-        expect(func.fx(func.fy(0.13))).toBeCloseTo(0.13, 7)
-        expect(func.fx(func.fy(0.13))).toBeCloseTo(0.13, 7)
-        expect(func.fx(func.fy(0.59))).toBeCloseTo(0.59, 7)
-        expect(func.fx(func.fy(1.00))).toBe(1.00)
+        bijectivePingPong(func, 0.00)
+        bijectivePingPong(func, 0.50)
+        bijectivePingPong(func, 0.13)
+        bijectivePingPong(func, 0.13)
+        bijectivePingPong(func, 0.59)
+        bijectivePingPong(func, 1.00)
     })
 })
