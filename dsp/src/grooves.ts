@@ -1,5 +1,5 @@
 import {ppqn} from "./ppqn"
-import {Bijective, quantizeFloor, unitValue} from "std"
+import {assert, Bijective, BinarySearch, FloatArray, int, NumberComparator, panic, quantizeFloor, unitValue} from "std"
 
 export interface GrooveFunction extends Bijective<unitValue, unitValue> {}
 
@@ -26,6 +26,37 @@ export class GroovePattern implements Groove {
         const normalized = (position - start) / duration
         const transformed = forward ? this.#func.fx(normalized) : this.#func.fy(normalized)
         return start + transformed * duration
+    }
+}
+
+export class QuantisedGrooveFunction implements GrooveFunction {
+    readonly #values: FloatArray
+
+    constructor(values: FloatArray) {
+        assert(values.length >= 2, "Must have at least two values [0, 1]")
+        assert(values[0] === 0.0, "First entry must be zero")
+        assert(values[values.length - 1] === 1.0, "Last entry must be one")
+        this.#values = values
+    }
+
+    fx(x: unitValue): unitValue {
+        if (x <= 0.0) {return 0.0}
+        if (x >= 1.0) {return 1.0}
+        const idxFloat = x * (this.#values.length - 1)
+        const idxInteger = idxFloat | 0
+        const valueFloor = this.#values[idxInteger]
+        const alpha = idxFloat - idxInteger
+        return valueFloor + alpha * (this.#values[idxInteger + 1] - valueFloor)
+    }
+
+    fy(y: unitValue): unitValue {
+        if (y <= 0.0) {return 0.0}
+        if (y >= 1.0) {return 1.0}
+        const index = BinarySearch.rightMost(this.#values as unknown as ReadonlyArray<number>, y, NumberComparator)
+        const curr = this.#values[index]
+        const next = this.#values[index + 1]
+        const alpha = (y - curr) / (next - curr)
+        return (index + alpha) / (this.#values.length - 1)
     }
 }
 

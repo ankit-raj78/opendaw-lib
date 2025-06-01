@@ -1,7 +1,25 @@
-import {int, unitValue} from "./lang"
+import {FloatArray, int, panic, unitValue} from "./lang"
 
 export class Random {
     static Default: Random = new Random(0x3456789A)
+
+    static monotoneAscending(target: FloatArray, scale: int = 128, random: () => unitValue = Math.random): FloatArray {
+        const count = target.length
+        if (count < 2) {return panic("Array must have at least 2 elements")}
+        let sum = 0.0
+        for (let i = 1; i < count; i++) {
+            const value = Math.floor(random() * (1 + scale)) + 1
+            target[i] = value
+            sum += value
+        }
+        let acc = 0.0
+        target[0] = 0.0
+        for (let i = 1; i < count; i++) {
+            acc += target[i]
+            target[i] = acc / sum
+        }
+        return target
+    }
 
     #seed: int = 0
 
