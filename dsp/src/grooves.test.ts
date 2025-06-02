@@ -8,12 +8,12 @@ import {
     QuantisedGrooveFunction
 } from "./grooves"
 import {PPQN, ppqn} from "./ppqn"
-import {meCurve, Random} from "std"
+import {moebiusEase, Random} from "std"
 
 const createMEGroove = (duration: ppqn, amount: number) => new GroovePattern({
     duration: (): ppqn => duration,
-    fx: x => meCurve(x, amount),
-    fy: y => meCurve(y, -amount)
+    fx: x => moebiusEase(x, amount),
+    fy: y => moebiusEase(y, 1.0 - amount)
 } satisfies GroovePatternFunction)
 
 const createOffsetGroove = (offset: ppqn): Groove => ({

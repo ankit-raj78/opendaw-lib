@@ -1,4 +1,6 @@
-import {int} from "./lang"
+// noinspection JSUnusedGlobalSymbols
+
+import {int, unitValue} from "./lang"
 
 export const TAU = Math.PI * 2.0
 export const PI_HALF = Math.PI / 2.0
@@ -6,6 +8,8 @@ export const PI_QUART = Math.PI / 4.0
 export const INVERSE_SQRT_2 = 1.0 / Math.sqrt(2.0)
 
 export const clamp = (value: number, min: number, max: number): number => Math.max(min, Math.min(value, max))
+export const squashUnit = (value: unitValue, margin: unitValue): unitValue =>
+    margin + (1.0 - 2.0 * margin) * Math.max(0.0, Math.min(value, 1.0))
 export const quantizeFloor = (value: number, interval: number): number => Math.floor(value / interval) * interval
 export const quantizeCeil = (value: number, interval: number): number => Math.ceil(value / interval) * interval
 export const quantizeRound = (value: number, interval: number): number => Math.round(value / interval) * interval
@@ -20,6 +24,8 @@ export const nextPowOf2 = (n: int): int => Math.pow(2, Math.ceil(Math.log(n) / M
 export const radToDeg = (rad: number): number => rad * 180.0 / Math.PI
 export const degToRad = (deg: number): number => deg / 180.0 * Math.PI
 
-// https://www.desmos.com/calculator/xivrmjqutt
 // Möbius-Ease Curve
-export const meCurve = (x: number, s: number) => s < 0.0 ? (s * x + x) / (s * x + 1.0) : x / (s * x - s + 1.0)
+// Only produces valid values between 0 and 1 (unitValues)
+// https://www.desmos.com/calculator/ht8cytaxsz
+// The inverse is h`=1-h
+export const moebiusEase = (x: unitValue, h: unitValue): unitValue => (x * h) / ((2.0 * h - 1.0) * (x - 1.0) + h)

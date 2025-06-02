@@ -1,5 +1,5 @@
 import {ppqn} from "./ppqn"
-import {assert, Bijective, BinarySearch, FloatArray, int, NumberComparator, panic, quantizeFloor, unitValue} from "std"
+import {assert, Bijective, BinarySearch, FloatArray, NumberComparator, quantizeFloor, unitValue} from "std"
 
 export interface GrooveFunction extends Bijective<unitValue, unitValue> {}
 
