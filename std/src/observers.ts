@@ -1,5 +1,6 @@
 import {Procedure} from "./lang"
 import {Subscription, Terminable} from "./terminable"
+import {Option} from "./option"
 
 export type Observer<VALUE> = Procedure<VALUE>
 
@@ -47,28 +48,35 @@ export interface MutableObservableValue<T> extends ObservableValue<T> {
     setValue(value: T): void
 }
 
-export const MutableObservableValueFalse: MutableObservableValue<boolean> =
-    new class implements MutableObservableValue<boolean> {
-        getValue() {return false}
-        setValue(_: boolean): void {}
-        subscribe(_: Observer<ObservableValue<boolean>>) {return Terminable.Empty}
-        catchupAndSubscribe(observer: Observer<ObservableValue<boolean>>) {
-            observer(this)
-            return Terminable.Empty
-        }
+export const MutableObservableValueFalse: MutableObservableValue<boolean> = new class implements MutableObservableValue<boolean> {
+    getValue() {return false}
+    setValue(_: boolean): void {}
+    subscribe(_: Observer<ObservableValue<boolean>>) {return Terminable.Empty}
+    catchupAndSubscribe(observer: Observer<ObservableValue<boolean>>) {
+        observer(this)
+        return Terminable.Empty
     }
+}
+
+export interface ValueGuard<T> {
+    guard(value: T): T
+}
 
 export class DefaultObservableValue<T> implements MutableObservableValue<T>, Terminable {
     readonly #notifier: Notifier<ObservableValue<T>>
 
+    readonly #guard: Option<ValueGuard<any>> = Option.None
+
     #value: T
 
-    constructor(value: T) {
+    constructor(value: T, guard?: ValueGuard<T>) {
         this.#notifier = new Notifier<ObservableValue<T>>()
-        this.#value = value
+        this.#value = guard?.guard(value) ?? value
+        this.#guard = Option.wrap(guard)
     }
 
     setValue(value: T): void {
+        if (this.#guard.nonEmpty()) {value = this.#guard.unwrap().guard(value)}
         if (this.#value === value) {return}
         this.#value = value
         this.#notifier.notify(this)
