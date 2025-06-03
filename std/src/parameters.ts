@@ -58,10 +58,6 @@ export class DefaultParameter<T extends Primitive = Primitive> implements Parame
         this.#value = value
     }
 
-    approveEditing(): void {}
-    beginEditing(): void {}
-    cancelEditing(): void {}
-
     catchupAndSubscribeControlSources(_observer: ControlSourceListener): Subscription {return Terminable.Empty}
 
     getControlledValue(): T {return this.getValue()}
