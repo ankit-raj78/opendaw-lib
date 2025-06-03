@@ -3,9 +3,16 @@ import {byte, int} from "std"
 export namespace MidiKeys {
     export const BlackKeyIndices = [1, 3, 6, 8, 10]
     export const BlackKeyBits = BlackKeyIndices.reduce((bits: int, keyIndex: int) => (bits |= 1 << keyIndex), 0)
-    export const Names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    export const Names = {
+        English: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
+        German: ["C", "Cis", "D", "Dis", "E", "F", "Fis", "G", "Gis", "A", "Ais", "H"],
+        Solfege: ["Do", "Do#", "Ré", "Ré#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"],
+        French: ["Do", "Do#", "Ré", "Ré#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"],
+        Spanish: ["Do", "Do#", "Re", "Re#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"],
+        Japanese: ["ド", "ド♯", "レ", "レ♯", "ミ", "ファ", "ファ♯", "ソ", "ソ♯", "ラ", "ラ♯", "シ"]
+    }
     export const isBlackKey = (note: int) => (BlackKeyBits & (1 << (note % 12))) !== 0
-    export const toFullString = (note: int): string => `${Names[note % 12]}${(Math.floor(note / 12) - 2)}`
+    export const toFullString = (note: int): string => `${Names.English[note % 12]}${(Math.floor(note / 12) - 2)}`
 
     export interface Scale {
         get bits(): int
