@@ -48,14 +48,28 @@ export interface MutableObservableValue<T> extends ObservableValue<T> {
     setValue(value: T): void
 }
 
-export const MutableObservableValueFalse: MutableObservableValue<boolean> = new class implements MutableObservableValue<boolean> {
-    getValue() {return false}
-    setValue(_: boolean): void {}
-    subscribe(_: Observer<ObservableValue<boolean>>) {return Terminable.Empty}
-    catchupAndSubscribe(observer: Observer<ObservableValue<boolean>>) {
-        observer(this)
-        return Terminable.Empty
-    }
+export namespace MutableObservableValue {
+    export const False: MutableObservableValue<boolean> =
+        new class implements MutableObservableValue<boolean> {
+            getValue() {return false}
+            setValue(_: boolean): void {}
+            subscribe(_: Observer<ObservableValue<boolean>>) {return Terminable.Empty}
+            catchupAndSubscribe(observer: Observer<ObservableValue<boolean>>) {
+                observer(this)
+                return Terminable.Empty
+            }
+        }
+
+    export const inverseBoolean = (observableValue: MutableObservableValue<boolean>): MutableObservableValue<boolean> =>
+        new class implements MutableObservableValue<boolean> {
+            getValue() {return !observableValue.getValue()}
+            setValue(value: boolean): void {observableValue.setValue(!value)}
+            subscribe(observer: Observer<ObservableValue<boolean>>) {return observableValue.subscribe(observer)}
+            catchupAndSubscribe(observer: Observer<ObservableValue<boolean>>) {
+                observer(this)
+                return this.subscribe(observer)
+            }
+        }
 }
 
 export interface ValueGuard<T> {
