@@ -7,6 +7,13 @@ and web-based functionality.
 
 ## Libraries
 
+### `std`
+
+The `std` library serves as a project’s standard module. It provides a collection of general-purpose
+functions and abstractions used throughout any project.
+
+---
+
 ### `box`
 
 The `box` library is designed to represent and manage data in a graph structure. This module provides the ability to
@@ -47,15 +54,7 @@ provides efficient methods to process audio signals, apply effects, and manage r
 
 ### `runtime`
 
-The `runtime` library provides helpers for managing platform-specific runtime environments. It includes checks and
-utilities designed to ensure smooth operation across different platforms and runtime contexts.
-
----
-
-### `std`
-
-The `std` library serves as a project’s standard module. It provides a collection of general-purpose
-functions and abstractions used throughout any project.
+The `runtime` library provides helpers for managing platform-specific runtime environments.
 
 ---
 
@@ -89,10 +88,6 @@ The project includes the following two shell scripts in its root directory:
 
 ---
 
-## License
-
-[GPL v3](https://www.gnu.org/licenses/gpl-3.0.txt) © 2025 André Michelle
-
 ## Dual-Licensing Model
 
 openDAW is available **under two alternative license terms**:
@@ -106,3 +101,7 @@ openDAW is available **under two alternative license terms**:
 > Email `andre.michelle@opendaw.org` with your company name, product description, and expected distribution volume.
 
 If you redistribute openDAW or a derivative work **without** a commercial license, the GPL v3 terms apply automatically.
+
+## License
+
+[GPL v3](https://www.gnu.org/licenses/gpl-3.0.txt) © 2025 André Michelle
