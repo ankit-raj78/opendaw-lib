@@ -129,7 +129,7 @@ export class BoxGraph<BoxMap = any> {
         return this.#immediateUpdateListeners.subscribe(listener)
     }
 
-    subscribeBoxUpdates(propagation: Propagation, address: Address, procedure: Procedure<Update>): Subscription {
+    subscribeVertexUpdates(propagation: Propagation, address: Address, procedure: Procedure<Update>): Subscription {
         return this.#dispatchers.subscribe(propagation, address, procedure)
     }
 

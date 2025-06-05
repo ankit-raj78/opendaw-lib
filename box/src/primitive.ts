@@ -89,7 +89,7 @@ export abstract class PrimitiveField<
     }
 
     subscribe(observer: Observer<ObservableValue<V>>): Subscription {
-        return this.graph.subscribeBoxUpdates(Propagation.This, this.address, () => observer(this))
+        return this.graph.subscribeVertexUpdates(Propagation.This, this.address, () => observer(this))
     }
 
     catchupAndSubscribe(observer: Observer<ObservableValue<V>>): Subscription {

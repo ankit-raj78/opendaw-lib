@@ -63,7 +63,7 @@ export abstract class Box<P extends PointerTypes = PointerTypes, F extends Field
     getField<K extends keyof F>(key: K): F[K] {return asDefined(this.#fields[key])}
     optField<K extends keyof F>(key: K): Option<F[K]> {return Option.wrap(this.#fields[key])}
     subscribe(propagation: Propagation, procedure: Procedure<Update>): Subscription {
-        return this.graph.subscribeBoxUpdates(propagation, this.address, procedure)
+        return this.graph.subscribeVertexUpdates(propagation, this.address, procedure)
     }
 
     get box(): Box {return this}

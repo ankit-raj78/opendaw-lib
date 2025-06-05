@@ -43,12 +43,12 @@ export class PointerField<P extends PointerTypes = PointerTypes> extends Field<U
     }
 
     subscribe(observer: Observer<this>): Subscription {
-        return this.graph.subscribeBoxUpdates(Propagation.This, this.address, () => observer(this))
+        return this.graph.subscribeVertexUpdates(Propagation.This, this.address, () => observer(this))
     }
 
     catchupAndSubscribe(observer: Observer<this>): Subscription {
         observer(this)
-        return this.graph.subscribeBoxUpdates(Propagation.This, this.address,
+        return this.graph.subscribeVertexUpdates(Propagation.This, this.address,
             () => this.graph.subscribeEndTransaction(() => observer(this)))
     }
 
