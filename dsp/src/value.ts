@@ -19,7 +19,7 @@ export namespace ValueEvent {
         if (positionDiff !== 0) {return positionDiff}
         const indexDiff = a.index - b.index
         if (indexDiff !== 0) {return indexDiff}
-        return a === b ? 0 : panic(`${a} and ${b} are identical in terms of comparation`)
+        return a === b ? 0 : panic(`${a} and ${b} are identical in terms of comparison`)
     }
 
     export function* iterateWindow<E extends ValueEvent>(events: EventCollection<E>,
@@ -43,11 +43,11 @@ export namespace ValueEvent {
      */
     export const valueAt = (events: EventCollection<ValueEvent>, position: ppqn, fallback: unitValue): unitValue => {
         if (events.isEmpty()) {return fallback} // no events, nothing to iterate
-        const iteratable = events.iterateFrom(position)
-        const {done, value: prevEvent} = iteratable.next()
+        const iterator = events.iterateFrom(position)
+        const {done, value: prevEvent} = iterator.next()
         if (done) {return fallback}
         if (prevEvent.position <= position) {
-            const {done, value: nextEvent} = iteratable.next()
+            const {done, value: nextEvent} = iterator.next()
             if (done) {
                 return prevEvent.value
             } else if (position < nextEvent.position) {
@@ -60,7 +60,7 @@ export namespace ValueEvent {
     }
 
     /**
-     * Quanitise a automation in equal segments, but also include min/max values.
+     * Quantise an automation in equal segments, but also include min/max values.
      * This is used for the ValueClipPainter to draw circular automation curves.
      * It has been tested in AutomationPage.
      */
@@ -69,8 +69,8 @@ export namespace ValueEvent {
         value: unitValue
     }> {
         if (events.isEmpty()) {return} // no events, nothing to iterate
-        const iteratable = events.iterateFrom(position)
-        const {done, value} = iteratable.next()
+        const iterator = events.iterateFrom(position)
+        const {done, value} = iterator.next()
         if (done) {return}
         const step: number = duration / numSteps
         let prevEvent = value
@@ -83,7 +83,7 @@ export namespace ValueEvent {
             if (prevEvent.position <= duration) {yield prevEvent}
         }
         while (position <= duration) {
-            const {done, value: nextEvent} = iteratable.next()
+            const {done, value: nextEvent} = iterator.next()
             if (done) {break}
             while (position < nextEvent.position) {
                 if (position > duration) {return}
