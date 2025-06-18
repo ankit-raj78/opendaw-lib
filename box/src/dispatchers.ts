@@ -43,11 +43,10 @@ class DispatchersImpl<TARGET extends Addressable> implements Dispatchers<TARGET>
             ...this.#childrenDispatcher.filter(target)]
         invoked
             .sort(({order: a}: Monitor<TARGET>, {order: b}: Monitor<TARGET>) => a - b)
-            .forEach((station: Monitor<TARGET>): void => {
-                station.procedure(target)
-            })
+            .forEach((station: Monitor<TARGET>): void => station.procedure(target))
         this.#dispatching = false
-        this.#deferredStations.splice(0).forEach((station: DeferredMonitor<TARGET>) => station.subscribe(this))
+        this.#deferredStations.forEach((station: DeferredMonitor<TARGET>) => station.subscribe(this))
+        this.#deferredStations.length = 0
     }
 
     subscribeMonitor(monitor: Monitor<TARGET>, propagation: Propagation): Subscription {

@@ -1,4 +1,4 @@
-import {Nullable, Provider} from "./lang"
+import {Exec, Nullable, Provider} from "./lang"
 import {Terminable} from "./terminable"
 
 export class CacheValue<T> implements Terminable {
@@ -8,7 +8,7 @@ export class CacheValue<T> implements Terminable {
 
     constructor(provider: Provider<T>) {this.#provider = provider}
 
-    invalidate(): void {this.#value = null}
+    readonly invalidate: Exec = () => this.#value = null
 
     get(): T {
         if (this.#value === null) {this.#value = this.#provider()}

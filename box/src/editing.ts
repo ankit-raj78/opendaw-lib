@@ -69,8 +69,8 @@ export class Editing {
         return true
     }
 
-    // TODO This is an option to clearify, if user actions meant to be run by a modifier or not.
-    //  See ParameterWrapper. Not the niceest solution. Probably coming back to this sooner or later.
+    // TODO This is an option to clarify, if user actions meant to be run by a modifier or not.
+    //  See ParameterWrapper. Not the nicest solution. Probably coming back to this sooner or later.
     canModify(): boolean {return !this.#graph.inTransaction()}
 
     modify<R>(modifier: Provider<Nullish<R>>, mark: boolean = true): Option<R> {
