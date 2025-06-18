@@ -65,5 +65,15 @@ export class Field<P extends PointerTypes = PointerTypes, F extends Fields = Fie
     optField(_key: keyof F): Option<F[keyof F]> {return Option.None}
     read(_input: DataInput): void {}
     write(_output: DataOutput): void {}
+    disconnect(): void {
+        if (this.pointerHub.isEmpty()) {return}
+        const incoming = this.pointerHub.incoming()
+        incoming.forEach(pointer => {
+            pointer.defer()
+            if (pointer.mandatory || (this.pointerRules.mandatory && incoming.length === 1)) {
+                pointer.box.delete()
+            }
+        })
+    }
     toString(): string {return `{${this.box.constructor.name}:${this.constructor.name} (${this.fieldName}) ${this.address.toString()}`}
 }

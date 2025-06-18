@@ -8,6 +8,7 @@ export const PI_QUART = Math.PI / 4.0
 export const INVERSE_SQRT_2 = 1.0 / Math.sqrt(2.0)
 
 export const clamp = (value: number, min: number, max: number): number => Math.max(min, Math.min(value, max))
+export const clampUnit = (value: number): unitValue => Math.max(0.0, Math.min(value, 1.0))
 export const squashUnit = (value: unitValue, margin: unitValue): unitValue =>
     margin + (1.0 - 2.0 * margin) * Math.max(0.0, Math.min(value, 1.0))
 export const quantizeFloor = (value: number, interval: number): number => Math.floor(value / interval) * interval

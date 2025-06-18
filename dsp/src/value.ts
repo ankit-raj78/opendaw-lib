@@ -2,7 +2,13 @@ import {Event, EventCollection} from "./events"
 import {BinarySearch, Comparator, Curve, int, Iterables, Nullable, panic, unitValue} from "std"
 import {ppqn} from "./ppqn"
 
-export enum Interpolation {None, Default}
+export type Interpolation = | { type: "none" } | { type: "linear" } | { type: "curve", slope: unitValue }
+
+export const Interpolation = {
+    None: {type: "none"},
+    Linear: {type: "linear"},
+    Curve: (slope: unitValue) => ({type: "curve", slope}) as const
+} as const
 
 export interface ValueEvent extends Event {
     readonly type: "value-event"
@@ -10,7 +16,6 @@ export interface ValueEvent extends Event {
     get index(): int
     get value(): number
     get interpolation(): Interpolation
-    get slope(): number
 }
 
 export namespace ValueEvent {
@@ -60,9 +65,9 @@ export namespace ValueEvent {
     }
 
     /**
-     * Quantise an automation in equal segments, but also include min/max values.
+     * Quantize an automation in equal segments but also include min/max values.
      * This is used for the ValueClipPainter to draw circular automation curves.
-     * It has been tested in AutomationPage.
+     * It has been tested in the AutomationPage.
      */
     export function* quantise(events: EventCollection<ValueEvent>, position: ppqn, duration: ppqn, numSteps: number): IteratorObject<{
         position: ppqn,
@@ -104,15 +109,18 @@ export namespace ValueEvent {
         }
     }
 
-    const interpolate = ({value, position, slope, interpolation}: ValueEvent, b: ValueEvent, x: number): unitValue => {
-        if (interpolation === Interpolation.None) {
+    const interpolate = ({value, position, interpolation}: ValueEvent, b: ValueEvent, x: number): unitValue => {
+        if (interpolation.type === "none") {
             return value
-        } else if (interpolation === Interpolation.Default) {
-            if (slope === 0.5) {
-                return value + (x - position) / (b.position - position) * (b.value - value)
-            } else {
-                return Curve.valueAt({slope, steps: b.position - position, y0: value, y1: b.value}, x - position)
-            }
+        } else if (interpolation.type === "linear") {
+            return value + (x - position) / (b.position - position) * (b.value - value)
+        } else if (interpolation.type === "curve") {
+            return Curve.valueAt({
+                slope: interpolation.slope,
+                steps: b.position - position,
+                y0: value,
+                y1: b.value
+            }, x - position)
         } else {
             return panic("Unknown interpolation")
         }

@@ -15,8 +15,7 @@ describe("ValueEvent", () => {
             position: 0,
             index: 0,
             value: 0,
-            interpolation: Interpolation.Default,
-            slope: 0.0
+            interpolation: Interpolation.Linear
         }
         events.add(event)
         expect(Array.from(ValueEvent.iterateWindow(events, 0, 1))).toStrictEqual([event])
@@ -28,24 +27,21 @@ describe("ValueEvent", () => {
             position: 0,
             index: 0,
             value: 0,
-            interpolation: Interpolation.Default,
-            slope: 0.0
+            interpolation: Interpolation.Linear
         }
         const A1: ValueEvent = {
             type: "value-event",
             position: 0,
             index: 1,
             value: 0,
-            interpolation: Interpolation.Default,
-            slope: 0.0
+            interpolation: Interpolation.Linear
         }
         const B: ValueEvent = {
             type: "value-event",
             position: PPQN.Bar * 3,
             index: 0,
             value: 0,
-            interpolation: Interpolation.Default,
-            slope: 0.0
+            interpolation: Interpolation.Linear
         }
         events.add(A1)
         events.add(A0)
@@ -59,16 +55,14 @@ describe("ValueEvent", () => {
             position: PPQN.Quarter,
             index: 0,
             value: 0,
-            interpolation: Interpolation.Default,
-            slope: 0.0
+            interpolation: Interpolation.Linear
         }
         const B: ValueEvent = {
             type: "value-event",
             position: PPQN.Quarter * 3,
             index: 0,
             value: 0,
-            interpolation: Interpolation.Default,
-            slope: 0.0
+            interpolation: Interpolation.Linear
         }
         events.add(B)
         events.add(A)
