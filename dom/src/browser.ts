@@ -9,4 +9,11 @@ export namespace Browser {
     export const isFirefox = () => hasNavigator && navigator.userAgent.toLowerCase().includes("firefox")
     export const isWeb = () => !isTauriApp()
     export const isTauriApp = () => "__TAURI__" in window
+    export const userAgent = hasNavigator ? navigator.userAgent
+        .replace(/^Mozilla\/[\d.]+\s*/, "")
+        .replace(/\bAppleWebKit\/[\d.]+\s*/g, "")
+        .replace(/\(KHTML, like Gecko\)\s*/g, "")
+        .replace(/\bSafari\/[\d.]+\s*/g, "")
+        .replace(/\s+/g, " ")
+        .trim() : "N/A"
 }
