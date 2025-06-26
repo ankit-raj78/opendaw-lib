@@ -203,7 +203,7 @@ class FooObject extends ObjectField<FooObjectFields> {
     get baz(): PrimitiveField<number, PointerType.B | PointerType.A> {return this.getField(3)}
 }
 
-describe("studio-boxes (create/navigate)", () => {
+describe("gen (create/navigate)", () => {
     const graph: BoxGraph = new BoxGraph()
     graph.beginTransaction()
     const fooBox = FooBox.create(graph, UUID.parse("3372511f-fab0-4dcd-a723-0146c949a527"))
@@ -259,7 +259,7 @@ describe("studio-boxes (create/navigate)", () => {
     })
 })
 
-describe("studio-boxes (deletion)", () => {
+describe("gen (deletion)", () => {
     it("deletion", () => {
         const graph: BoxGraph = new BoxGraph()
         graph.beginTransaction()
