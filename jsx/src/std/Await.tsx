@@ -10,7 +10,7 @@ export type AwaitProps<T> = {
 }
 
 export const Await = <T, >({factory, loading, success, failure}: AwaitProps<T>) => {
-    const contents: DomElement = <div style={{display: "contents"}}/>
+    const contents: DomElement = <div style={{display: "contents"}}/> as unknown as DomElement
     const start = () => {
         replaceChildren(contents, loading())
         factory().then(

@@ -7,7 +7,7 @@ export type HotspotUpdater = { update: Exec }
 export type HotSpotProps = { render: Provider<JsxValue>, ref: Inject.Ref<HotspotUpdater> }
 
 export const Hotspot = ({render, ref}: HotSpotProps) => {
-    const contents: DomElement = <div style={{display: "contents"}}/>
+    const contents: DomElement = <div style={{display: "contents"}}/> as unknown as DomElement
     replaceChildren(contents, render())
     ref.addTarget({update: () => replaceChildren(contents, render())})
     return contents

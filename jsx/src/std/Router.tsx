@@ -44,7 +44,7 @@ export const Router = <SERVICE = never>({
         .resolve(path)
         .mapOr(route => route.factory, () => fallback)
 
-    const container: HTMLDivElement = <div style={{display: "contents"}}/>
+    const container: HTMLDivElement = <div style={{display: "contents"}}/> as unknown as HTMLDivElement
 
     let loading: Option<PageRequest> = Option.None
     let showing: Option<PageRequest> = Option.None

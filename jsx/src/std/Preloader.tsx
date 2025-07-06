@@ -20,7 +20,7 @@ component {
 `, "__preloader__")
 
 export const Preloader = ({color}: { color?: string }): Terminable => {
-    const element: HTMLElement = <div className={className} style={{backgroundColor: color ?? "orange"}}/>
+    const element: HTMLElement = <div className={className} style={{backgroundColor: color ?? "orange"}}/> as unknown as HTMLElement
     document.body.appendChild(element)
     return {terminate: () => element.remove()}
 }
